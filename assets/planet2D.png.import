@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/planet2D.png-4367737b754b03ddd76c882ef0aad847.stex"
+path="res://.import/planet2D.png-638e999e13971d44c141b6b35aace4ba.stex"
 
 [deps]
 
-source_file="res://planet2D.png"
-dest_files=[ "res://.import/planet2D.png-4367737b754b03ddd76c882ef0aad847.stex" ]
+source_file="res://assets/planet2D.png"
+dest_files=[ "res://.import/planet2D.png-638e999e13971d44c141b6b35aace4ba.stex" ]
 
 [params]
 

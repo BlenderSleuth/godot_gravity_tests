@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Player2.gd" type="Script" id=1]
-[ext_resource path="res://arrow.tscn" type="PackedScene" id=2]
-[ext_resource path="res://player2D.png" type="Texture" id=3]
+[ext_resource path="res://player/Player2.gd" type="Script" id=1]
+[ext_resource path="res://scenes/arrow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/player2D.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 25.6, 23.2117 )
 
-[node name="Player2" type="KinematicBody2D" index="0"]
+[node name="Player2" type="KinematicBody2D"]
 
 input_pickable = false
 collision_layer = 1
@@ -18,8 +18,10 @@ collision/safe_margin = 0.08
 script = ExtResource( 1 )
 gravity = 1200
 run_speed = 100
+fly_speed = 20
 max_run_speed = 500
 run_damp = 0.85
+fly_damp = 0.98
 jump_speed = 100
 jump_time = 0.35
 

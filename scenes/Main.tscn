@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/Main.gd" type="Script" id=1]
+[ext_resource path="res://Planet.gd" type="Script" id=2]
+[ext_resource path="res://assets/planet2D.png" type="Texture" id=3]
+[ext_resource path="res://player/Player2.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 76.7983
+
+[node name="main" type="Node2D" index="0"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Planet" type="StaticBody2D" parent="." index="0" groups=[
+"ground",
+]]
+
+position = Vector2( 436.699, 339.366 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+script = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Circle" type="CollisionShape2D" parent="Planet" index="0"]
+
+shape = SubResource( 1 )
+
+[node name="planet2D" type="Sprite" parent="Planet" index="1"]
+
+scale = Vector2( 0.299806, 0.299806 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Player2" parent="." index="1" instance=ExtResource( 4 )]
+
+position = Vector2( 436.699, 98.2167 )
+_sections_unfolded = [ "Transform" ]
+
+

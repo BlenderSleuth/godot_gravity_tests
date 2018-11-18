@@ -1,8 +1,10 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://arrow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player/Player.gd" type="Script" id=1]
+[ext_resource path="res://scenes/arrow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player2D.png" type="Texture" id=3]
+
+
 
 [sub_resource type="RectangleShape2D" id=2]
 

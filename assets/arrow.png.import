@@ -2,12 +2,12 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player2D.png-da9486c856f2ef1490a554fbf541023f.stex"
+path="res://.import/arrow.png-af9c40b335090227900bc7e5c1ee343c.stex"
 
 [deps]
 
-source_file="res://player2D.png"
-dest_files=[ "res://.import/player2D.png-da9486c856f2ef1490a554fbf541023f.stex" ]
+source_file="res://assets/arrow.png"
+dest_files=[ "res://.import/arrow.png-af9c40b335090227900bc7e5c1ee343c.stex" ]
 
 [params]
 
