@@ -1,23 +1,23 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://player/Player2.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/ground.png" type="Texture" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
 extents = Vector2( 256, 63 )
 
-[node name="LinearGravity" type="Node2D" index="0"]
+[node name="LinearGravity" type="Node2D"]
 
 [node name="Player2" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 422, 142.498 )
 _sections_unfolded = [ "Transform" ]
 run_speed = 110
-fly_speed = 20
-fly_damp = 0.98
 jump_time = 0.3
+planetPath = null
 
 [node name="Platform1" type="StaticBody2D" parent="." index="1" groups=[
 "ground",

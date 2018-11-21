@@ -11,13 +11,14 @@ config_version=3
 [application]
 
 config/name="gravity"
-run/main_scene="res://scenes/LinearGravity.tscn"
+run/main_scene="res://scenes/Main.tscn"
 config/icon="res://assets/icon.png"
 
 [display]
 
-window/size/width=854
-window/size/height=480
+window/size/width=1280
+window/size/height=720
+window/dpi/allow_hidpi=true
 
 [input]
 
@@ -45,4 +46,5 @@ ui_down=[ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"
 [rendering]
 
 environment/default_clear_color=Color( 1, 1, 1, 1 )
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

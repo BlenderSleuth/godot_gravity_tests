@@ -3,12 +3,12 @@
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://Planet.gd" type="Script" id=2]
 [ext_resource path="res://assets/planet2D.png" type="Texture" id=3]
-[ext_resource path="res://player/Player2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 76.7983
+radius = 177.63
 
 [node name="main" type="Node2D" index="0"]
 
@@ -19,7 +19,7 @@ _sections_unfolded = [ "Transform" ]
 "ground",
 ]]
 
-position = Vector2( 436.699, 339.366 )
+position = Vector2( 464.625, 448.611 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
@@ -39,13 +39,16 @@ shape = SubResource( 1 )
 
 [node name="planet2D" type="Sprite" parent="Planet" index="1"]
 
-scale = Vector2( 0.299806, 0.299806 )
+scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Player2" parent="." index="1" instance=ExtResource( 4 )]
+[node name="Player" parent="." index="1" instance=ExtResource( 4 )]
 
-position = Vector2( 436.699, 98.2167 )
+position = Vector2( 832.701, 70.8973 )
 _sections_unfolded = [ "Transform" ]
+run_speed = 100
+jump_time = 0.24
+planetPath = NodePath("../Planet")
 
 
