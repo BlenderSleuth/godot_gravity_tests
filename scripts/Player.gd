@@ -11,8 +11,8 @@ export (float) var fly_damp = 0.98
 export (int) var jump_speed = 100
 export (float) var jump_time = 0.24 # Time in seconds for advanced control over jump
 
-export (NodePath) var planetPath
-onready var planet = get_node(planetPath)
+# Planet on which the player is being attracted
+onready var currentPlanet = get_node("../Planet")
 
 # Velocity is relative to node, unrotated
 var velocity = Vector2()
@@ -71,9 +71,11 @@ func _physics_process(delta):
 	# Apply gravity
 	velocity.y += gravity * delta
 	
-	# Normalised vector in direction of gravity
-	var gravVec = (planet.position - position).normalized()
+#	var space_state = get_world_2d().direct_space_stat
 	
+	# Normalised vector in direction of gravity
+	var gravVec = (currentPlanet.position - position).normalized() if currentPlanet else Vector2(0, 1)
+
 	# Rotation to point towards the gravitational force
 	var rotation_angle = Vector2(0, 1).angle_to(gravVec)
 	# Rotate the kinematic body so the bottom faces the force

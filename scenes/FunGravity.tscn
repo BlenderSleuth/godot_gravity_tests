@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/funPlayer2D.png" type="Texture" id=2]
+
+[node name="root" type="Node2D" index="0"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Player" parent="." index="0" instance=ExtResource( 1 )]
+
+position = Vector2( 763.663, 126.7 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="Planet" type="StaticBody2D" parent="." index="1"]
+
+position = Vector2( 640, 360 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planet" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( -176.717, 17.195, -157.765, 53.295, -120.762, 70.4425, -75.6375, 61.4175, -44.0499, 37.05, -3.15649, 26.7291, 43.4926, 35.245, 81.3976, 65.0275, 116.595, 72.2475, 148.183, 61.4175, 176.16, 30.7325, 178.868, 1.85254, 168.94, -39.6625, 136.45, -66.7375, 88.6176, -66.7375, 42.5901, -36.955, -3.15649, -27.6715, -39.6447, -33.6423, -85.5649, -64.03, -128.885, -65.835, -161.375, -45.0775, -177.62, -18.0025 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="planet2D" type="Sprite" parent="Planet" index="1"]
+
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+
