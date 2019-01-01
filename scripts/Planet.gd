@@ -1,15 +1,30 @@
 extends StaticBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+# Finds the surface normal of 
+#func find_surface(attractedBody):
+#	var distance = position.distance_to(attractedBody.position)
+#	var space_state = get_world_2d().direct_space_state
+#
+#	var raypoint = Vector2(0, distance).rotated(attractedBody.rotation)
+#
+#	var surfaceNorm = Vector2(0,0)
+#
+#	var result = space_state.intersect_ray(attractedBody.global_position, raypoint, [attractedBody])
+#	if result:
+##		print(result.position)
+#		surfaceNorm = result.normal
+#
+#	return surfaceNorm
+
+# Takes a body and returns the gravity vector
+#func attract(attractedBody):
+#	var pullVec = find_surface(attractedBody)
+#
+#	var upVec = Vector2(0, -1).rotated(attractedBody.rotation)
+#	var rot_dif = 0
+	

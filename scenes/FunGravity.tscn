@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/funPlayer2D.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Planet.gd" type="Script" id=2]
+[ext_resource path="res://assets/funPlayer2D.png" type="Texture" id=3]
 
 [node name="root" type="Node2D" index="0"]
 
@@ -9,7 +10,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
-position = Vector2( 763.663, 126.7 )
+position = Vector2( 751.116, 230.302 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Planet" type="StaticBody2D" parent="." index="1"]
@@ -22,18 +23,19 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+script = ExtResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Planet" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( -176.717, 17.195, -157.765, 53.295, -120.762, 70.4425, -75.6375, 61.4175, -44.0499, 37.05, -3.15649, 26.7291, 43.4926, 35.245, 81.3976, 65.0275, 116.595, 72.2475, 148.183, 61.4175, 176.16, 30.7325, 178.868, 1.85254, 168.94, -39.6625, 136.45, -66.7375, 88.6176, -66.7375, 42.5901, -36.955, -3.15649, -27.6715, -39.6447, -33.6423, -85.5649, -64.03, -128.885, -65.835, -161.375, -45.0775, -177.62, -18.0025 )
+polygon = PoolVector2Array( -176.717, 17.195, -170.94, 35.0563, -155.915, 50.2956, -139.173, 61.4568, -122.217, 68.9692, -103.328, 68.9692, -88.3038, 65.3203, -77.1426, 59.7397, -66.539, 51.3112, -60.4008, 46.4321, -43.8662, 35.3407, -28.3907, 30.3769, -3.52319, 27.7029, 24.988, 30.1844, 45.1005, 36.9226, 68.8416, 50.8161, 86.361, 63.6636, 117.02, 68.9194, 145.343, 56.0719, 160.818, 45.5603, 170.746, 30.3769, 176.002, 17.8214, 178.868, 1.85254, 175.71, -20.7212, 168.94, -39.6625, 150.307, -56.6359, 132.495, -64.2276, 109.72, -69.1914, 88.6176, -66.7375, 66.2137, -51.3801, 42.5901, -36.955, 21.2537, -29.6826, -3.52319, -28.5434, -24.7402, -29.6826, -35.9894, -32.2457, -50.941, -39.6503, -60.4008, -45.4333, -71.562, -57.0238, -85.5649, -64.03, -107.192, -67.9703, -128.885, -65.835, -146.686, -58.7409, -161.375, -45.0775, -170.94, -32.5549, -177.62, -18.0025, -180.384, 3.28973 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="planet2D" type="Sprite" parent="Planet" index="1"]
 
 scale = Vector2( 0.7, 0.7 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 

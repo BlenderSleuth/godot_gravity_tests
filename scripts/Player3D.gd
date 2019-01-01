@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends KinematicBody
 
 export (int) var gravity = 1200
 
@@ -14,10 +14,10 @@ export (float) var jump_time = 0.24 # Time in seconds for advanced control over 
 # Planet on which the player is being attracted
 onready var current_planet = get_node("../Planet")
 
-onready var ground_ray = $ground_ray
+onready var ground_ray = $GroundRay
 
 # Velocity is relative to node, unrotated
-var velocity = Vector2()
+var velocity = Vector3()
 var jumping = false
 
 func _ready():

@@ -4,7 +4,6 @@
 [ext_resource path="res://scenes/arrow.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/player2D.png" type="Texture" id=3]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -29,7 +28,7 @@ fly_damp = 0.98
 jump_speed = 100
 jump_time = 0.24
 
-[node name="Box" type="CollisionShape2D" parent="." index="0"]
+[node name="box" type="CollisionShape2D" parent="." index="0"]
 
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -46,11 +45,12 @@ scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D" type="RayCast2D" parent="." index="3"]
+[node name="ground_ray" type="RayCast2D" parent="." index="3"]
 
-enabled = false
+position = Vector2( 0, 25 )
+enabled = true
 exclude_parent = true
-cast_to = Vector2( 0, 250 )
+cast_to = Vector2( 0, 800 )
 collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
