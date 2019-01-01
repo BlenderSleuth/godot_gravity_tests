@@ -14,12 +14,12 @@ script = ExtResource( 2 )
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 40, 0 )
 _sections_unfolded = [ "Transform" ]
-run_speed = 0.5
+run_speed = 8
 fly_speed = 1
-max_run_speed = 10
+max_run_speed = 15
 gravity = 10
 
-[node name="Camera" type="Camera" parent="Player" index="3"]
+[node name="PlayerCamera" type="Camera" parent="Player" index="3"]
 
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 5.16494, 20 )
 keep_aspect = 1
@@ -64,7 +64,7 @@ directional_shadow_depth_range = 0
 directional_shadow_max_distance = 200.0
 _sections_unfolded = [ "Shadow", "Transform" ]
 
-[node name="Camera" type="Camera" parent="." index="3"]
+[node name="FrontCamera" type="Camera" parent="." index="3"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 60 )
 keep_aspect = 1
