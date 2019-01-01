@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scripts/NewPlayer3D.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Player3D.gd" type="Script" id=1]
 [ext_resource path="res://assets/Player3D.mesh" type="ArrayMesh" id=2]
 [ext_resource path="res://materials/player.tres" type="Material" id=3]
+[ext_resource path="res://materials/nose.tres" type="Material" id=4]
+
 
 [sub_resource type="BoxShape" id=1]
 
@@ -15,6 +17,15 @@ size = Vector3( 2, 2, 2 )
 subdivide_width = 0
 subdivide_height = 0
 subdivide_depth = 0
+
+[sub_resource type="CylinderMesh" id=3]
+
+custom_aabb = AABB( 0, 0, 0, 0, 0, 0 )
+top_radius = 0.5
+bottom_radius = 0.3
+height = 2.0
+radial_segments = 64
+rings = 4
 
 [node name="Player" type="KinematicBody" index="0"]
 
@@ -31,9 +42,9 @@ axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 1 )
 gravity = 4
-run_speed = 100
-fly_speed = 20
-max_run_speed = 500
+run_speed = 8
+fly_speed = 2
+max_run_speed = 15
 run_damp = 0.85
 fly_damp = 0.98
 jump_speed = 100
@@ -85,5 +96,22 @@ mesh = SubResource( 2 )
 skeleton = NodePath("..")
 material/0 = ExtResource( 3 )
 _sections_unfolded = [ "material" ]
+
+[node name="MeshInstance3" type="MeshInstance" parent="." index="4"]
+
+transform = Transform( 1.91069e-015, 4.37114e-008, 1, 1, -4.37114e-008, 0, 4.37114e-008, 1, -4.37114e-008, 0, 0, -1 )
+layers = 1
+material_override = null
+cast_shadow = 1
+extra_cull_margin = 0.0
+use_in_baked_light = false
+lod_min_distance = 0.0
+lod_min_hysteresis = 0.0
+lod_max_distance = 0.0
+lod_max_hysteresis = 0.0
+mesh = SubResource( 3 )
+skeleton = NodePath("..")
+material/0 = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "material" ]
 
 

@@ -14,28 +14,8 @@ script = ExtResource( 2 )
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 40, 0 )
 _sections_unfolded = [ "Transform" ]
-run_speed = 8
-fly_speed = 2
-max_run_speed = 15
 jump_speed = 20
 jump_time = 0.2
-
-[node name="PlayerCamera" type="Camera" parent="Player" index="3"]
-
-transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 5.16494, 20 )
-keep_aspect = 1
-cull_mask = 1048575
-environment = null
-h_offset = 0.0
-v_offset = 0.0
-doppler_tracking = 0
-projection = 0
-current = true
-fov = 70.0
-size = 1.0
-near = 0.05
-far = 100.0
-_sections_unfolded = [ "Transform" ]
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="2"]
 
@@ -77,6 +57,23 @@ doppler_tracking = 0
 projection = 0
 current = false
 fov = 70.0
+size = 1.0
+near = 0.05
+far = 100.0
+_sections_unfolded = [ "Transform" ]
+
+[node name="PlayerCamera" type="Camera" parent="." index="4"]
+
+transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 30, 50, 40 )
+keep_aspect = 1
+cull_mask = 1048575
+environment = null
+h_offset = 0.0
+v_offset = 0.0
+doppler_tracking = 0
+projection = 0
+current = true
+fov = 45.0
 size = 1.0
 near = 0.05
 far = 100.0

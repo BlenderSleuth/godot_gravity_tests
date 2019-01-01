@@ -1,28 +1,48 @@
 extends KinematicBody
 
-export (int) var gravity = 1200
+# Tweakable properties
 
-export (int) var run_speed = 100
-export (int) var fly_speed = 20
-export (int) var max_run_speed = 500
+export (float) var gravity = 4
+
+export (float) var run_speed = 8
+export (float) var fly_speed = 2
+export (float) var max_run_speed = 15
+
 export (float) var run_damp = 0.85
 export (float) var fly_damp = 0.98
 
-export (int) var jump_speed = 100
-export (float) var jump_time = 0.24 # Time in seconds for advanced control over jump
+export (int) var jump_speed = 20
+export (float) var jump_time = 0.2 # Time in seconds for advanced control over jump
 
-# Planet on which the player is being attracted
-onready var current_planet = get_node("../Planet")
+var planet_position = Vector3()
 
-onready var ground_ray = $GroundRay
+# Node References
+onready var player_camera = $"../PlayerCamera"
+onready var front_camera = $"../FrontCamera"
 
-# Velocity is relative to node, unrotated
+var cam_offset = Vector3()
+
+# Velocity in global coordinates
 var velocity = Vector3()
-var jumping = false
+
 
 func _ready():
-	pass
+	cam_offset = player_camera.transform.origin - transform.origin
 
+
+var using_front_camera = false
+func _process(delta):
+	if Input.is_action_just_pressed("ui_focus_next"):
+		using_front_camera = !using_front_camera
+		if using_front_camera:
+			front_camera.make_current()
+		else:
+			player_camera.make_current()
+			
+	player_camera.transform.origin = transform.origin + cam_offset
+
+
+var jumping = false
 var timer = 0.0
 func jump(delta):
 	var newjump = Input.is_action_just_pressed('ui_select')
@@ -30,73 +50,102 @@ func jump(delta):
 	# Only reset if it is a new jump, and from the floor
 	if newjump and not jumping and is_on_floor():
 		jumping = true
-		velocity.y = 0
 		timer = 0.0
 	
 	# More of the current jump
 	if jumping and timer < jump_time:
 		var proportion_completed = timer / jump_time
-		var jump_vec = Vector2(0, -jump_speed).linear_interpolate(Vector2(0, 0), proportion_completed)
-		velocity += jump_vec
+		# Gradually decrease the jump speed over the time of the jump
+		var jump_amount = lerp(jump_speed, 0, proportion_completed)
 		timer += delta
+		return jump_amount
 	else:
 		# Finished jumping
 		jumping = false
+	
+	return 0
 
-func get_input(delta):
+
+func get_movement(delta):
+	# Input events
 	var right = Input.is_action_pressed('ui_right')
 	var left = Input.is_action_pressed('ui_left')
+	var forward = Input.is_action_pressed("ui_up")
+	var backward = Input.is_action_pressed("ui_down")
 	var jump = Input.is_action_pressed('ui_select')
 
-	# Slow down velocity 
-	velocity.x *= run_damp if is_on_floor() else fly_damp
-
-	if jump:
-		jump(delta)
-	else:
-		jumping = false
+	# Movement velocity in local coordinates
+	var move = Vector3()
 	
 	# Different speed on ground and in air
 	var move_speed = run_speed if is_on_floor() else fly_speed
 	if right:
-		velocity.x += move_speed
+		move.x += move_speed
 	if left:
-		velocity.x -= move_speed
+		move.x -= move_speed
+	if backward:
+		move.z += move_speed
+	if forward:
+		move.z -= move_speed
 	
-	# Make sure player doesn't accelerate too much
-	velocity.x = clamp(velocity.x, -max_run_speed, max_run_speed)
+	# Make sure player doesn't accelerate too much, clamp vector length
+	move = move.normalized() * clamp(move.length(), -move_speed, move_speed)
+	
+	# Apply jump
+	if jump:
+		move.y += jump(delta)
+	else:
+		jumping = false
+	
+	return move
+
 
 func _physics_process(delta):
-	# Player movement and jumps
-	get_input(delta)
+	# Vector in the direction of gravity
+	var grav_vec = (planet_position - transform.origin).normalized()
 	
-	var gravVec = Vector2()
-	if ground_ray.is_colliding() and current_planet:
-		gravVec = -ground_ray.get_collision_normal()
+	# Feet of player
+	var down = -transform.basis.y
+	
+	# Rotation axis, perpindicular to the down direction and gravity direction
+	var rot_axis = down.cross(grav_vec)
+	
+	# Check to make sure we don't screw up later on, can't normalize null vector
+	if (rot_axis.length_squared() == 0):
+		var front = transform.basis.z
+		rot_axis = front
 	else:
-		# Normalised vector in direction of gravity
-		gravVec = (current_planet.global_position - global_position).normalized() if current_planet else Vector2(0, 1)
-		print("halp")
-		
-	# Rotation to point towards the gravitational force
-	var rotation_angle = Vector2(0, 1).angle_to(gravVec)
-	# Rotate the kinematic body so the bottom faces the force
-	rotation = rotation_angle
+		rot_axis = rot_axis.normalized()
 	
-	# Velocity in global coordinates
-	var global_velocity = velocity.rotated(rotation)
+	# Find the angle to rotate
+	var dot = clamp(down.dot(grav_vec), -1, 1)
+	# Both are unit vectors, so dot product = cos(angle)
+	var angle = acos(dot)
 	
-	# Apply gravity
-	global_velocity += gravVec.normalized() * gravity * delta
+	# Rotate player so the local down direction is in the direction of gravity
+	transform.basis = transform.basis.rotated(rot_axis, angle)
+	transform = transform.orthonormalized() # Fix up basis
 	
-	# Floor is relative to player orientation
-	var floor_normal = Vector2(0, -1).rotated(rotation)
-	# Move player based on velocity
-	global_velocity = move_and_slide(global_velocity, floor_normal)
-	# Local velocity
-	velocity = global_velocity.rotated(-rotation)
+	# Apply input movement
+	var movement = get_movement(delta)
+	# Movement is a local translation, so transform with the rotation to get it in global coordinates
+	velocity += transform.basis.xform(movement)
 	
-	# If player collided with something
+	# Add gravity 
+	velocity += grav_vec * gravity
+	
+	# Apply friction or air resistance
+	var damp = run_damp if is_on_floor() else fly_damp
+	
+	# Move player
+	velocity = move_and_slide(velocity, -grav_vec) * damp
+	
 	if get_slide_count() > 0:
 		var collision = get_slide_collision(0)
-		jumping = false
+		# Sanity check
+		if !is_on_floor():
+			print("why")
+			assert(false)
+
+
+
