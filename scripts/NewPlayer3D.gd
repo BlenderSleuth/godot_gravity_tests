@@ -4,9 +4,9 @@ extends KinematicBody
 
 export (float) var gravity = 4
 
-export (int) var run_speed = 8
-export (int) var fly_speed = 1
-export (int) var max_run_speed = 15
+export (float) var run_speed = 8
+export (float) var fly_speed = 2
+export (float) var max_run_speed = 15
 
 export (float) var run_damp = 0.85
 export (float) var fly_damp = 0.98
@@ -73,11 +73,6 @@ func get_movement(delta):
 
 	# Movement velocity in local coordinates
 	var move = Vector3()
-
-	if jump:
-		move.y += jump(delta)
-	else:
-		jumping = false
 	
 	# Different speed on ground and in air
 	var move_speed = run_speed if is_on_floor() else fly_speed
@@ -91,7 +86,13 @@ func get_movement(delta):
 		move.z -= move_speed
 	
 	# Make sure player doesn't accelerate too much, clamp vector length
-	move = move.normalized() * clamp(move.length(), -max_run_speed, max_run_speed)
+	move = move.normalized() * clamp(move.length(), -move_speed, move_speed)
+	
+	# Apply jump
+	if jump:
+		move.y += jump(delta)
+	else:
+		jumping = false
 	
 	return move
 
@@ -124,7 +125,8 @@ func _physics_process(delta):
 	
 	# Apply input movement
 	var movement = get_movement(delta)
-	velocity += transform.basis * movement
+	# Movement is a local translation, so transform with the rotation to get it in global coordinates
+	velocity += transform.basis.xform(movement)
 	
 	# Add gravity 
 	velocity += grav_vec * gravity

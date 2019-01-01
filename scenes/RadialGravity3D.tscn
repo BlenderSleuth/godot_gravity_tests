@@ -14,9 +14,8 @@ script = ExtResource( 2 )
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 40, 0 )
 _sections_unfolded = [ "Transform" ]
-gravity = 4
 run_speed = 8
-fly_speed = 1
+fly_speed = 2
 max_run_speed = 15
 jump_speed = 20
 jump_time = 0.2
