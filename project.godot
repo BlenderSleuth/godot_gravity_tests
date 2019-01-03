@@ -11,7 +11,7 @@ config_version=3
 [application]
 
 config/name="gravity"
-run/main_scene="res://scenes/RadialGravity3D.tscn"
+run/main_scene="res://scenes/Gravity3D.tscn"
 config/icon="res://assets/icon.png"
 
 [display]
