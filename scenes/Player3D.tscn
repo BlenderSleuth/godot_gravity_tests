@@ -40,6 +40,7 @@ run_damp = 0.85
 fly_damp = 0.98
 jump_speed = 100
 jump_time = 0.24
+rot_speed = 20
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="0"]
 

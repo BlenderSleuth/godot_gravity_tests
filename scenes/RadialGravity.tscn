@@ -3,7 +3,6 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/planet2D.png" type="Texture" id=2]
 
-
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -17,7 +16,6 @@ _sections_unfolded = [ "Transform" ]
 
 position = Vector2( 832.701, 70.8973 )
 _sections_unfolded = [ "Transform" ]
-planetPath = NodePath("../Planet")
 
 [node name="Planet" type="StaticBody2D" parent="." index="1" groups=[
 "ground",

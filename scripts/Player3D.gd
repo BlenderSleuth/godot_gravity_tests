@@ -12,12 +12,14 @@ export (float) var run_damp = 0.85
 export (float) var fly_damp = 0.98
 
 export (int) var jump_speed = 20
-export (float) var jump_time = 0.2 # Time in seconds for advanced control over jump
+export (float) var jump_time = 0.2 # Time in seconds for control over jump
+
+export (float) var rot_speed = 20 # Deg/Frame
 
 var planet_position = Vector3()
 
 # Node References
-onready var player_camera = $"../PlayerCamera"
+onready var player_camera = $"./PlayerCamera"
 onready var front_camera = $"../FrontCamera"
 onready var ground_ray = $GroundRay
 
@@ -30,7 +32,6 @@ var velocity = Vector3()
 func _ready():
 	cam_offset = player_camera.transform.origin - transform.origin
 
-
 var using_front_camera = false
 func _process(delta):
 	if Input.is_action_just_pressed("ui_focus_next"):
@@ -40,7 +41,7 @@ func _process(delta):
 		else:
 			player_camera.make_current()
 			
-	player_camera.transform.origin = transform.origin + cam_offset
+#	player_camera.transform.origin = transform.origin + cam_offset
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		grav = !grav
@@ -133,6 +134,12 @@ func _physics_process(delta):
 		
 		# Rotate player so the local down direction is in the direction of gravity
 		transform.basis = transform.basis.rotated(rot_axis, angle)
+		
+		# Quaternion Slerp to smooth
+#		var q = Quat(rot_axis, angle)
+#		var b = Quat(transform.basis).slerp(q, clamp(rot_speed * delta, 0, 1))
+#		transform.basis = Basis(b)
+		
 		transform = transform.orthonormalized() # Fix up basis
 	
 	# Apply input movement
